@@ -24,6 +24,7 @@ Esta práctica será desarrollada con estructura de ramales por cada fase, para 
 |7.| Pruebas de Ejecución | 3 | ✅ Completado |
 |8.| Documentación | 1 | ✅ Completado |
 |9.| Interfaz Analítica y Justificación Técnica | 3 | ✅ Completado |
+|10.| Evidencias Fotográficas y Cierre | 7 | ⏳ En proceso |
 
 ---
 
@@ -87,3 +88,44 @@ En esta práctica se evaluaron dos de las herramientas más importantes para la 
 - **Leaflet (OpenStreetMap)**: Representa la flexibilidad del **código abierto**. Es una librería ligera que facilita la personalización y la carga rápida de mapas sin depender de servicios de pago.
 
 **Logro final:** Se logró la sincronización en tiempo real de ambos motores de mapas, permitiendo una comparativa visual directa y funcional.
+
+---
+
+### 🏁 Fase 10: Evidencias Fotográficas y Cierre
+
+Esta fase final documenta la validación funcional del proyecto y el cumplimiento del flujo de trabajo por ramales. Se integran las capturas de pantalla que demuestran la sincronización de las APIs y la correcta configuración del entorno de desarrollo.
+
+#### 📸 Galería de Resultados Finales
+
+**1. Ejecución y Sincronización de Mapas**
+Muestra el despliegue de Google Maps y Leaflet localizando el mismo punto en tiempo real.
+![Vista General](img/ejecucion-principal.png)
+
+**2. Consola del Servidor y Flujo de Git**
+Evidencia de la creación de la rama fase10, la estructura de carpetas y el servidor activo.
+![Terminal y Git](img/consola-servidor.png)
+
+**3. Análisis Comparativo y Métricas**
+Visualización de los contadores dinámicos de marcadores y la tabla de capacidades técnicas.
+![Métricas y Análisis](img/analisis-comparativo.png)
+
+**4. Interfaz de Usuario y Footer Institucional**
+Muestra el diseño final con el pie de página de ancho completo y los identificadores tecnológicos.
+![Diseño Final](img/footer-institucional.png)
+
+**5. Lógica del Servidor (Backend)**
+Muestra la configuración del núcleo del proyecto en Node.js, incluyendo la gestión de rutas con Express y la integración segura de variables de entorno.
+![Backend](img/Backend.png)
+
+**6. Controlador del Cliente (Frontend Lógico)**
+Evidencia la implementación de JavaScript para la sincronización de los motores de búsqueda y la gestión de marcadores en tiempo real.
+![Frontend Lógico](img/Frontend_Lógico.png)
+
+**7. Maquetación y Vistas (Estructura de la Interfaz)**
+Muestra el esqueleto del proyecto desarrollado con EJS y Tailwind CSS, destacando la organización de los contenedores de mapas.
+![Estructura de la Interfaz](img/EstructuraDeLaInterfaz.png)
+
+---
+
+**Conclusión del Proyecto:**
+La práctica se completó exitosamente, integrando herramientas de backend (Node.js/Express) con servicios de terceros (APIs de Mapas). Se cumplió con el estándar de control de versiones y la arquitectura modular solicitada.
