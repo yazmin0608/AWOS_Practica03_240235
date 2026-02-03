@@ -76,4 +76,14 @@ El proyecto se organizó bajo un esquema de separación de responsabilidades par
 - **views/index.ejs:** El esqueleto visual del proyecto. Utiliza el motor de plantillas EJS para renderizar la interfaz de usuario diseñada con Tailwind CSS.
 
 - **.env.example:** Archivo de referencia indispensable. Sirve como plantilla técnica para que otros desarrolladores identifiquen qué variables requiere el proyecto sin exponer los datos sensibles reales.
->>>>>>> fase7
+
+---
+
+### 📝 Fase 8: Conclusión Técnica
+
+En esta práctica se evaluaron dos de las herramientas más importantes para la geolocalización web, logrando los siguientes aprendizajes:
+
+- **Google Maps API**: Es una solución robusta con datos de alta precisión y mapas satelitales detallados. Su implementación permitió practicar la seguridad mediante **variables de entorno** y el manejo de **API Keys** propietarias.
+- **Leaflet (OpenStreetMap)**: Representa la flexibilidad del **código abierto**. Es una librería ligera que facilita la personalización y la carga rápida de mapas sin depender de servicios de pago.
+
+**Logro final:** Se logró la sincronización en tiempo real de ambos motores de mapas, permitiendo una comparativa visual directa y funcional.
