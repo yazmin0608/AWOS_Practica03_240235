@@ -108,7 +108,98 @@
                 <p class="text-sm text-gray-500 font-medium">Total Búsquedas</p>
             </div>
         </footer>
+        <section class="mt-12 bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 flex items-center justify-center">
+                    <span class="mr-3">⚖️</span> Comparación de Capacidades Técnicas
+                </h2>
+                <p class="text-gray-500 mt-2 text-lg">Evaluación de requerimientos tecnológicos y costos operativos</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                    <thead class="bg-gray-100 border-b-2 border-gray-200">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-sm font-bold text-gray-600 uppercase">Funcionalidad</th>
+                            <th class="px-6 py-4 text-center text-sm font-bold text-blue-600 uppercase border-l">Google
+                                Maps API</th>
+                            <th class="px-6 py-4 text-center text-sm font-bold text-green-600 uppercase border-l">
+                                Leaflet.js (OSM)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-gray-700">Modelo de Costos</td>
+                            <td class="px-6 py-4 text-center text-gray-600 border-l">Pago por uso (Créditos gratuitos
+                                mensuales)</td>
+                            <td class="px-6 py-4 text-center text-gray-600 border-l">100% Gratuito y de Código Abierto
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-gray-700">Nivel de Detalle</td>
+                            <td class="px-6 py-4 text-center text-gray-600 border-l">Alta precisión y Street View
+                                integrado</td>
+                            <td class="px-6 py-4 text-center text-gray-600 border-l">Variable según la comunidad de OSM
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-gray-700">Autenticación</td>
+                            <td class="px-6 py-4 text-center text-gray-600 border-l">Obligatoria mediante API Key segura
+                            </td>
+                            <td class="px-6 py-4 text-center text-gray-600 border-l">No requiere llaves de acceso</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-gray-700">Personalización</td>
+                            <td class="px-6 py-4 text-center text-gray-600 border-l">Limitada a las herramientas de
+                                Google</td>
+                            <td class="px-6 py-4 text-center text-gray-600 border-l">Totalmente extensible con plugins
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
+    </main> <footer class="w-full bg-[#1e293b] text-white py-10 mt-12">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center border-b border-gray-700 pb-6">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <h3 class="text-xl font-bold">Práctica de Geolocalización</h3>
+                    <p class="text-gray-400 text-sm mt-1">Comparación de APIs de Mapas - Node.js, Express, Tailwind CSS</p>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-white transition-all text-3xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <div class="flex items-center space-x-2 bg-gray-800 px-3 py-1 rounded-lg">
+                        <i class="fab fa-node-js text-green-500 text-2xl"></i>
+                        <span class="text-xs font-mono">node</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-gray-800 px-3 py-1 rounded-lg">
+                        <i class="fab fa-js-square text-yellow-400 text-2xl"></i>
+                        <span class="text-xs font-mono">JS</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-gray-800 px-3 py-1 rounded-lg">
+                        <i class="fab fa-envira text-green-400 text-2xl"></i>
+                        <span class="text-xs font-mono">S</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center text-xs text-gray-500 space-y-2">
+                <p>Nota: Esta es una aplicación de demostración para fines educativos.</p>
+                <p>Google Maps requiere una API key válida para funcionar completamente.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.serverLocation = {
+            lat: <%= initialLocation.lat %>,
+            lng: <%= initialLocation.lng %>,
+            name: '<%= initialLocation.name %>'
+        };
+    </script>
 
     <script>
         window.serverLocation = {
