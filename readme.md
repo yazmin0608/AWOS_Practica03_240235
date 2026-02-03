@@ -21,5 +21,5 @@ Esta práctica será desarrollada con estructura de ramales por cada fase, para 
 |4.| Creación de Vistas | 1 | ✅ Completado |
 |5.| Implementación de Backend para Consumo (JS) | 1 | ✅ Completado |
 |6.| Configuración del Entorno | 1 | ✅ Completado |
-|7.| Pruebas de Ejecución | X | ❌ Sin Iniciar |
+|7.| Pruebas de Ejecución | 1 | ✅ Completado |
 |8.| Documentación | X | ❌ Sin Iniciar |
