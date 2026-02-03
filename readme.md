@@ -23,6 +23,7 @@ Esta práctica será desarrollada con estructura de ramales por cada fase, para 
 |6.| Configuración del Entorno | 1 | ✅ Completado |
 |7.| Pruebas de Ejecución | 3 | ✅ Completado |
 |8.| Documentación | 1 | ✅ Completado |
+|9.| Interfaz Analítica y Justificación Técnica | 3 | ✅ Completado |
 
 ---
 
