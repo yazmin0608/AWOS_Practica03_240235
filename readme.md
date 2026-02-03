@@ -16,7 +16,7 @@ Esta práctica será desarrollada con estructura de ramales por cada fase, para 
 |No.|Descripción|Potenciador|Estatus|
 | --- | --- | --- | --- |
 |1.| Configuración del Proyecto| 3 | ✅ Completado |
-|2.| Configuración del Servidor | X | ❌ Sin Iniciar |
+|2.| Configuración del Servidor | X | ⏳ En proceso |
 |3.| Configuración de la Libreria de Estilos (Tailwind CSS) | X | ❌ Sin Iniciar |
 |4.| Creación de Vistas | X | ❌ Sin Iniciar |
 |5.| Implementación de Backend para Consumo (JS) | X | ❌ Sin Iniciar |
