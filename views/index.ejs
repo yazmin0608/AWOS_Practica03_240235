@@ -7,20 +7,263 @@
     <title>
         <%= title %>
     </title>
-    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'google-blue': '#4285F4',
+                        'leaflet-green': '#199900',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body class="bg-gray-50">
-    <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold text-google-blue mb-2">Servidor de Mapas Listo</h1>
-        <p class="text-gray-600">Ubicación inicial: <span class="font-semibold text-leaflet-green">
-                <%= initialLocation.name %>
-            </span></p>
+<body class="bg-gray-50 min-h-screen">
 
-        <div class="api-card mt-6">
-            <p>Si ves este recuadro con sombra, ¡tus estilos funcionan!</p>
+    <header class="bg-gradient-to-r from-google-blue to-leaflet-green text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-3xl md:text-4xl font-bold">
+                        <i class="fas fa-map-marked-alt mr-3"></i>Comparación de APIs de Mapas
+                    </h1>
+                    <p class="text-gray-100 mt-2">Google Maps vs Leaflet - Práctica de Geolocalización</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 rounded-full bg-google-blue mr-2 border border-white"></div>
+                        <span class="text-sm">Google Maps</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 rounded-full bg-leaflet-green mr-2 border border-white"></div>
+                        <span class="text-sm">Leaflet</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="control-panel mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-2">
+                    <div class="flex">
+                        <input type="text" id="addressInput" placeholder="Ej: Torre Eiffel, París o 40.7128, -74.0060"
+                            class="flex-grow px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-google-blue">
+                        <button id="searchButton"
+                            class="bg-google-blue text-white px-6 py-3 rounded-r-lg hover:bg-blue-600 transition duration-300">
+                            <i class="fas fa-search mr-2"></i>Buscar
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <button id="currentLocationBtn"
+                            class="bg-leaflet-green text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300 mr-3">
+                            <i class="fas fa-location-arrow mr-2"></i>Mi Ubicación
+                        </button>
+                        <button id="clearMarkersBtn"
+                            class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-300">
+                            <i class="fas fa-trash-alt mr-2"></i>Limpiar Marcadores
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-inner">
+                    <h3 class="font-bold text-lg mb-2 flex items-center">
+                        <i class="fas fa-info-circle text-google-blue mr-2"></i>Información
+                    </h3>
+                    <div id="locationInfo" class="text-sm text-gray-600">
+                        <p>Latitud: <span id="currentLat" class="font-mono text-google-blue">
+                                <%= initialLocation.lat %>
+                            </span></p>
+                        <p>Longitud: <span id="currentLng" class="font-mono text-google-blue">
+                                <%= initialLocation.lng %>
+                            </span></p>
+                        <p>Lugar: <span id="currentPlace" class="font-medium text-gray-800">
+                                <%= initialLocation.name %>
+                            </span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="api-card">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-google-blue flex items-center">
+                        <i class="fab fa-google mr-3"></i>Google Maps API
+                    </h2>
+                    <span
+                        class="bg-google-blue text-white text-xs px-3 py-1 rounded-full uppercase font-bold">Propietario</span>
+                </div>
+                <div class="h-96 relative">
+                    <div id="googleMap" class="map-container"></div>
+                    <div
+                        class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-sm shadow-sm border border-gray-100">
+                        <span class="text-google-blue font-bold">Zoom: </span><span id="googleZoom">12</span>
+                    </div>
+                </div>
+                <div class="mt-6 grid grid-cols-2 gap-4 text-sm border-t pt-4">
+                    <div>
+                        <h4 class="font-bold mb-2 text-gray-700"><i
+                                class="fas fa-star text-yellow-400 mr-1"></i>Ventajas</h4>
+                        <ul class="text-gray-600 space-y-1">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Datos precisos</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Street View</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Búsqueda avanzada</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-2 text-gray-700"><i
+                                class="fas fa-exclamation-circle text-orange-400 mr-1"></i>Consideraciones</h4>
+                        <ul class="text-gray-600 space-y-1">
+                            <li><i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>API Key requerida</li>
+                            <li><i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>Límites gratuitos</li>
+                            <li><i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>Puede tener costo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-leaflet-green flex items-center">
+                        <i class="fas fa-leaf mr-3"></i>Leaflet.js
+                    </h2>
+                    <span class="bg-leaflet-green text-white text-xs px-3 py-1 rounded-full uppercase font-bold">Open
+                        Source</span>
+                </div>
+                <div class="h-96 relative">
+                    <div id="leafletMap" class="map-container"></div>
+                    <div
+                        class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-sm shadow-sm border border-gray-100">
+                        <span class="text-leaflet-green font-bold">Zoom: </span><span id="leafletZoom">12</span>
+                    </div>
+                </div>
+                <div class="mt-6 grid grid-cols-2 gap-4 text-sm border-t pt-4">
+                    <div>
+                        <h4 class="font-bold mb-2 text-gray-700"><i
+                                class="fas fa-star text-yellow-400 mr-1"></i>Ventajas</h4>
+                        <ul class="text-gray-600 space-y-1">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Totalmente gratuito</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Ligero y rápido</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Personalizable</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-2 text-gray-700"><i
+                                class="fas fa-exclamation-circle text-orange-400 mr-1"></i>Consideraciones</h4>
+                        <ul class="text-gray-600 space-y-1">
+                            <li><i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>Datos de OSM</li>
+                            <li><i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>Menos detalle nativo
+                            </li>
+                            <li><i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>Más configuración</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="api-card mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">
+                <i class="fas fa-balance-scale mr-3"></i>Comparación Técnica de Funcionalidades
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Funcionalidad</th>
+                            <th
+                                class="px-6 py-3 text-left text-xs font-medium text-google-blue uppercase tracking-wider">
+                                Google Maps</th>
+                            <th
+                                class="px-6 py-3 text-left text-xs font-medium text-leaflet-green uppercase tracking-wider">
+                                Leaflet</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-sm">
+                        <tr>
+                            <td class="px-6 py-4 font-bold text-gray-900">Costo</td>
+                            <td class="px-6 py-4 text-gray-500">Gratuito hasta cierto límite (Créditos)</td>
+                            <td class="px-6 py-4 text-gray-500 font-medium text-green-600">Completamente gratuito</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-bold text-gray-900">Modos de Navegación</td>
+                            <td class="px-6 py-4 text-gray-500"><i class="fas fa-check text-green-500 mr-2"></i>Completa
+                                (Auto, Pie, Bici)</td>
+                            <td class="px-6 py-4 text-gray-500"><i class="fas fa-check text-green-500 mr-2"></i>Básica
+                                (Vía plugins)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-bold text-gray-900">Street View</td>
+                            <td class="px-6 py-4 text-gray-500 text-green-600"><i
+                                    class="fas fa-check mr-2"></i>Disponible nativo</td>
+                            <td class="px-6 py-4 text-red-500"><i class="fas fa-times mr-2"></i>No disponible nativo
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-bold text-gray-900">Personalización</td>
+                            <td class="px-6 py-4 text-gray-500">Limitada por la plataforma</td>
+                            <td class="px-6 py-4 text-gray-500 font-medium text-blue-600">Ilimitada (Open Source)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-center">
+            <div class="api-card border-b-4 border-google-blue">
+                <div class="text-4xl font-black text-google-blue mb-2" id="googleMarkersCount">0</div>
+                <div class="text-sm font-bold text-gray-500 uppercase">Marcadores Google</div>
+            </div>
+            <div class="api-card border-b-4 border-leaflet-green">
+                <div class="text-4xl font-black text-leaflet-green mb-2" id="leafletMarkersCount">0</div>
+                <div class="text-sm font-bold text-gray-500 uppercase">Marcadores Leaflet</div>
+            </div>
+            <div class="api-card border-b-4 border-purple-600">
+                <div class="text-4xl font-black text-purple-600 mb-2" id="totalSearches">0</div>
+                <div class="text-sm font-bold text-gray-500 uppercase">Total Búsquedas</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <h3 class="text-2xl font-bold mb-2">Práctica de Geolocalización</h3>
+                    <p class="text-gray-400">Node.js + Express + Tailwind CSS + APIs de Mapas</p>
+                    <p class="text-gray-500 text-xs mt-4">Universidad Tecnológica de Xicotepec de Juárez</p>
+                </div>
+                <div class="flex space-x-8">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                            class="fab fa-github text-3xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                            class="fab fa-js-square text-3xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                            class="fab fa-node-js text-3xl"></i></a>
+                </div>
+            </div>
+            <div class="mt-10 pt-8 border-t border-gray-700 text-center text-gray-400 text-sm">
+                <p>&copy; 2026 - Desarrollo de Software Multiplataforma. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsApiKey %>&callback=initGoogleMap" async
+        defer></script>
+    <script src="/js/app.js"></script>
 </body>
 
 </html>
