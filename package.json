@@ -25,9 +25,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    
-    "build:css": "tailwindcss build src/css/styles.css -o public/css/styles.css",
-    "watch:css": "tailwindcss build src/css/styles.css -o public/css/styles.css --watch",
+    "build:css": "npx tailwindcss build src/css/styles.css -o public/css/styles.css",
+    "watch:css": "npx tailwindcss build src/css/styles.css -o public/css/styles.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
