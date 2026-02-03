@@ -1,0 +1,45 @@
+{
+  "name": "awos_practica03_240235",
+  "version": "1.0.0",
+  "description": "Condumo de APIs de Geolocalización en un entorno de NodeJS",
+  "keywords": [
+    "Google",
+    "Maps",
+    "Leaflet",
+    "Geologalización",
+    "NodeJS",
+    "APIs"
+  ],
+  "homepage": "https://github.com/yazmin0608/AWOS_Practica03_240235#readme",
+  "bugs": {
+    "url": "https://github.com/yazmin0608/AWOS_Practica03_240235/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yazmin0608/AWOS_Practica03_240235.git"
+  },
+  "license": "ISC",
+  "author": "Yazmin Ariana Esquivel Marquez",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build:css": "tailwindcss build src/css/styles.css -o public/css/styles.css",
+    "watch:css": "tailwindcss build src/css/styles.css -o public/css/styles.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.13.4",
+    "dotenv": "^17.2.3",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.11",
+    "autoprefixer": "^10.4.24",
+    "nodemon": "^3.1.11",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
+  }
+}
