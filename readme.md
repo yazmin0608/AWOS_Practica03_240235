@@ -15,7 +15,7 @@ Esta práctica será desarrollada con estructura de ramales por cada fase, para 
 #### Tablas de Fases
 |No.|Descripción|Potenciador|Estatus|
 | --- | --- | --- | --- |
-|1.| Configuración del Proyecto| 3 | ❌ Sin Iniciar |
+|1.| Configuración del Proyecto| 3 | ✅ Completado |
 |2.| Configuración del Servidor | X | ❌ Sin Iniciar |
 |3.| Configuración de la Libreria de Estilos (Tailwind CSS) | X | ❌ Sin Iniciar |
 |4.| Creación de Vistas | X | ❌ Sin Iniciar |
