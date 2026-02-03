@@ -1,10 +1,14 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
-require('dotenv').config();
+// Cargar variables de entorno al inicio del archivo
+require('dotenv').config(); 
 
 const app = express();
+
+// Configuración de variables de entorno con valores de respaldo
 const PORT = process.env.PORT || 3000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
 // Middleware
 app.use(express.json());
@@ -16,28 +20,29 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Variables globales para APIs
-app.locals.googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY || 'TU_CLAVE_AQUI';
+// Se elimina el texto 'TU_CLAVE_AQUI' para forzar el uso de variables de entorno seguras
+app.locals.googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY; 
 app.locals.openStreetMapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 // --- RUTAS ---
 
 // Ruta Principal
 app.get('/', (req, res) => {
-  res.render('index', { 
-    title: 'Comparación de APIs de Mapas', 
+  res.render('index', {
+    title: 'Comparación de APIs de Mapas',
     googleMapsApiKey: app.locals.googleMapsApiKey,
-    initialLocation: { 
-      lat: 20.2575, 
-      lng: -97.9536, 
-      name: 'Xicotepec de Juárez, Puebla' 
-    } 
+    initialLocation: {
+      lat: 20.2575,
+      lng: -97.9536,
+      name: 'Xicotepec de Juárez, Puebla'
+    }
   });
 });
 
 // Ruta para Geocodificación (Dirección -> Coordenadas)
 app.get('/geocode', async (req, res) => {
   const { address } = req.query;
-  
+
   if (!address) {
     return res.status(400).json({ error: 'Dirección requerida' });
   }
@@ -68,7 +73,7 @@ app.get('/geocode', async (req, res) => {
 // Ruta para Geocodificación Inversa (Coordenadas -> Dirección)
 app.get('/reverse-geocode', async (req, res) => {
   const { lat, lng } = req.query;
-  
+
   if (!lat || !lng) {
     return res.status(400).json({ error: 'Coordenadas requeridas' });
   }
@@ -93,7 +98,16 @@ app.get('/reverse-geocode', async (req, res) => {
   }
 });
 
+// Inicio del servidor con logs informativos de entorno
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-  console.log('Google Maps API Key:', app.locals.googleMapsApiKey !== 'TU_CLAVE_AQUI' ? 'Configurada' : 'No configurada');
+  console.log(`=================================================`);
+  console.log(` Servidor activo en modo: ${NODE_ENV}`);
+  console.log(` URL Local: http://localhost:${PORT}`);
+  // Verificación de seguridad de la API Key
+  if (app.locals.googleMapsApiKey) {
+    console.log(` Estado API: Google Maps Key detectada en .env ✅`);
+  } else {
+    console.log(` Estado API: Google Maps Key NO DETECTADA ❌`);
+  }
+  console.log(`=================================================`);
 });
